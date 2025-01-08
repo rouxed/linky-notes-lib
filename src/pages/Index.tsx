@@ -10,6 +10,7 @@ interface Note {
   description: string;
   tags: string[];
   color: string;
+  reviewed: boolean;
 }
 
 const Index = () => {
@@ -26,6 +27,14 @@ const Index = () => {
 
   const deleteNote = (id: string) => {
     setNotes((prev) => prev.filter((note) => note.id !== id));
+  };
+
+  const toggleReviewStatus = (id: string) => {
+    setNotes((prev) =>
+      prev.map((note) =>
+        note.id === id ? { ...note, reviewed: !note.reviewed } : note
+      )
+    );
   };
 
   const filteredNotes = notes.filter((note) => {
@@ -53,6 +62,7 @@ const Index = () => {
               key={note.id}
               note={note}
               onDelete={() => deleteNote(note.id)}
+              onToggleReview={() => toggleReviewStatus(note.id)}
             />
           ))}
         </div>

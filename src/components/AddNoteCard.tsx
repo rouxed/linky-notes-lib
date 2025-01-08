@@ -14,6 +14,7 @@ interface AddNoteCardProps {
     description: string;
     tags: string[];
     color: string;
+    reviewed: boolean;
   }) => void;
 }
 
@@ -44,6 +45,7 @@ export const AddNoteCard = ({ onAddNote }: AddNoteCardProps) => {
       description,
       tags: tags.split(",").map((tag) => tag.trim()).filter(Boolean),
       color: randomColor(),
+      reviewed: false, // New notes are initially unreviewed
     });
 
     setUrl("");

@@ -1,6 +1,7 @@
-import { ExternalLink, Trash2 } from "lucide-react";
+import { ExternalLink, Trash2, CheckCircle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Switch } from "@/components/ui/switch";
 
 interface NoteCardProps {
   note: {
@@ -9,23 +10,37 @@ interface NoteCardProps {
     description: string;
     tags: string[];
     color: string;
+    reviewed: boolean;
   };
   onDelete: () => void;
+  onToggleReview: () => void;
 }
 
-export const NoteCard = ({ note, onDelete }: NoteCardProps) => {
+export const NoteCard = ({ note, onDelete, onToggleReview }: NoteCardProps) => {
   return (
     <div className={`note-card bg-${note.color}`}>
       <div className="flex justify-between items-start mb-3">
         <h3 className="font-semibold text-lg line-clamp-2">{note.title}</h3>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="h-8 w-8 text-gray-500 hover:text-destructive"
-          onClick={onDelete}
-        >
-          <Trash2 className="h-4 w-4" />
-        </Button>
+        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2">
+            <Switch
+              checked={note.reviewed}
+              onCheckedChange={onToggleReview}
+              aria-label="Toggle review status"
+            />
+            <span className="text-xs text-gray-500">
+              {note.reviewed ? "Reviewed" : "To Review"}
+            </span>
+          </div>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="h-8 w-8 text-gray-500 hover:text-destructive"
+            onClick={onDelete}
+          >
+            <Trash2 className="h-4 w-4" />
+          </Button>
+        </div>
       </div>
       {note.description && (
         <p className="text-gray-600 text-sm mb-3 line-clamp-3">{note.description}</p>
