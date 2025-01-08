@@ -26,10 +26,10 @@ export const NoteCard = ({ note, onDelete, onToggleReview }: NoteCardProps) => {
             <Switch
               checked={note.reviewed}
               onCheckedChange={onToggleReview}
-              aria-label="Toggle review status"
+              aria-label="Cambiar estado de revisión"
             />
             <span className="text-xs text-gray-500">
-              {note.reviewed ? "Reviewed" : "To Review"}
+              {note.reviewed ? "Revisado" : "Por Revisar"}
             </span>
           </div>
           <Button
@@ -58,7 +58,7 @@ export const NoteCard = ({ note, onDelete, onToggleReview }: NoteCardProps) => {
         rel="noopener noreferrer"
         className="inline-flex items-center text-sm text-primary hover:underline"
       >
-        Visit Link
+        Visitar Enlace
         <ExternalLink className="h-3 w-3 ml-1" />
       </a>
     </div>

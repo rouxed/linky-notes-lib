@@ -50,7 +50,7 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       <header className="border-b">
         <div className="container py-6">
-          <h1 className="text-3xl font-bold mb-6">Link Sticky Notes</h1>
+          <h1 className="text-3xl font-bold mb-6">Notas Adhesivas de Enlaces</h1>
           <SearchBar value={searchQuery} onChange={setSearchQuery} />
         </div>
       </header>

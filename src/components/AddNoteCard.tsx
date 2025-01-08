@@ -33,7 +33,7 @@ export const AddNoteCard = ({ onAddNote }: AddNoteCardProps) => {
     if (!url.trim()) {
       toast({
         title: "Error",
-        description: "Please enter a URL",
+        description: "Por favor, ingresa una URL",
         variant: "destructive",
       });
       return;
@@ -45,7 +45,7 @@ export const AddNoteCard = ({ onAddNote }: AddNoteCardProps) => {
       description,
       tags: tags.split(",").map((tag) => tag.trim()).filter(Boolean),
       color: randomColor(),
-      reviewed: false, // New notes are initially unreviewed
+      reviewed: false,
     });
 
     setUrl("");
@@ -66,38 +66,38 @@ export const AddNoteCard = ({ onAddNote }: AddNoteCardProps) => {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>Add New Link Note</DialogTitle>
+          <DialogTitle>Agregar Nueva Nota de Enlace</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <Label htmlFor="url">URL</Label>
             <Input
               id="url"
-              placeholder="https://example.com"
+              placeholder="https://ejemplo.com"
               value={url}
               onChange={(e) => setUrl(e.target.value)}
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="title">Title (Optional)</Label>
+            <Label htmlFor="title">Título (Opcional)</Label>
             <Input
               id="title"
-              placeholder="Note title"
+              placeholder="Título de la nota"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="description">Description (Optional)</Label>
+            <Label htmlFor="description">Descripción (Opcional)</Label>
             <Textarea
               id="description"
-              placeholder="Add a description..."
+              placeholder="Agregar una descripción..."
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="tags">Tags (Comma separated)</Label>
+            <Label htmlFor="tags">Etiquetas (Separadas por comas)</Label>
             <Input
               id="tags"
               placeholder="react, javascript, tutorial"
@@ -105,7 +105,7 @@ export const AddNoteCard = ({ onAddNote }: AddNoteCardProps) => {
               onChange={(e) => setTags(e.target.value)}
             />
           </div>
-          <Button type="submit" className="w-full">Add Note</Button>
+          <Button type="submit" className="w-full">Agregar Nota</Button>
         </form>
       </DialogContent>
     </Dialog>
