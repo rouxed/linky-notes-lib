@@ -1,12 +1,62 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { useState } from "react";
+import { AddNoteCard } from "@/components/AddNoteCard";
+import { NoteCard } from "@/components/NoteCard";
+import { SearchBar } from "@/components/SearchBar";
+
+interface Note {
+  id: string;
+  url: string;
+  title: string;
+  description: string;
+  tags: string[];
+  color: string;
+}
 
 const Index = () => {
+  const [notes, setNotes] = useState<Note[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const addNote = (noteData: Omit<Note, "id">) => {
+    const newNote = {
+      ...noteData,
+      id: Date.now().toString(),
+    };
+    setNotes((prev) => [newNote, ...prev]);
+  };
+
+  const deleteNote = (id: string) => {
+    setNotes((prev) => prev.filter((note) => note.id !== id));
+  };
+
+  const filteredNotes = notes.filter((note) => {
+    const searchLower = searchQuery.toLowerCase();
+    return (
+      note.title.toLowerCase().includes(searchLower) ||
+      note.description.toLowerCase().includes(searchLower) ||
+      note.tags.some((tag) => tag.toLowerCase().includes(searchLower))
+    );
+  });
+
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="text-center">
-        <h1 className="text-4xl font-bold mb-4">Welcome to Your Blank App</h1>
-        <p className="text-xl text-gray-600">Start building your amazing project here!</p>
-      </div>
+    <div className="min-h-screen bg-background">
+      <header className="border-b">
+        <div className="container py-6">
+          <h1 className="text-3xl font-bold mb-6">Link Sticky Notes</h1>
+          <SearchBar value={searchQuery} onChange={setSearchQuery} />
+        </div>
+      </header>
+      <main className="container py-6">
+        <div className="masonry-grid">
+          <AddNoteCard onAddNote={addNote} />
+          {filteredNotes.map((note) => (
+            <NoteCard
+              key={note.id}
+              note={note}
+              onDelete={() => deleteNote(note.id)}
+            />
+          ))}
+        </div>
+      </main>
     </div>
   );
 };
