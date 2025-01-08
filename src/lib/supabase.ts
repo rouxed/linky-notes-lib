@@ -4,8 +4,23 @@ import { createClient } from '@supabase/supabase-js';
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
 const supabaseKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
 
-if (!supabaseUrl || !supabaseKey) {
-  throw new Error('Missing Supabase environment variables. Make sure you have connected your Supabase project in Lovable.');
-}
+// Create a dummy client that throws informative errors when methods are called
+const dummyClient = {
+  from: () => {
+    throw new Error('Please connect your Supabase project in Lovable before using database features.');
+  },
+  // Add other commonly used methods
+  auth: {
+    signIn: () => {
+      throw new Error('Please connect your Supabase project in Lovable before using authentication features.');
+    },
+    signOut: () => {
+      throw new Error('Please connect your Supabase project in Lovable before using authentication features.');
+    }
+  }
+};
 
-export const supabase = createClient(supabaseUrl, supabaseKey);
+// Export either the real client or the dummy client
+export const supabase = supabaseUrl && supabaseKey 
+  ? createClient(supabaseUrl, supabaseKey)
+  : dummyClient;
